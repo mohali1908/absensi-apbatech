@@ -44,7 +44,7 @@
 
     <nav class="navbar navbar-expand-md bg-dark navbar-dark py-3">
         <div class="container">
-            <a class="navbar-brand bg-transparent fw-bold" href="{{ route('home.front') }}">Absensi Appbatech</a>
+            <a class="navbar-brand bg-transparent fw-bold" href="{{ route('home.front') }}">Absensi Apbatech</a>
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                 aria-label="Toggle navigation">
