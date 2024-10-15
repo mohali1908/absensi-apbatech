@@ -46,7 +46,7 @@
                 <small class="text-muted d-block mt-2">Perhatikan format tanggal d (Hari), m (Bulan) dan y
                     (Tahun)</small>
                 <x-form-error key="leaves.{{ $i }}.start_date" />
-            </div>             
+            </div>          
                      
 
               
