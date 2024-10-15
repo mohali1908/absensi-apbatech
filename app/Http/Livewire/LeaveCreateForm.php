@@ -31,7 +31,6 @@ class LeaveCreateForm extends Component
         $this->users = User::query()
             ->distinct()
             ->leftJoin(DB::raw('(SELECT * FROM presences WHERE presence_date = CURDATE()) as p'), 'users.id', '=', 'p.user_id')
-            ->whereNull('p.presence_date')
             ->where('users.id', '<>', 1) // Exclude admin (user ID = 1)
             ->select('users.id', 'name')
             ->get();
