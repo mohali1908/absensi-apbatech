@@ -34,8 +34,11 @@
                 </select>
                 @error('leaves.' . $i . '.leave_type') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
-           
-      
+            <div>
+                <label for="number_of_leaves{{ $i }}">Jumlah Cuti {{ $i + 1 }}</label>
+                <input type="number" wire:model.defer="leaves.{{ $i }}.number_of_leaves" class="form-control" placeholder="Jumlah Cuti">
+                @error('leaves.' . $i . '.number_of_leaves') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>   
             <div class="mb-3">
                 <x-form-label id="start_date{{ $i }}" label='Tanggal Mulai cuti({{ $i + 1 }})' />
                 <x-form-input type="date" id="start_date{{ $i }}" name="start_date{{ $i }}" class="form-control"
@@ -44,18 +47,9 @@
                     (Tahun)</small>
                 <x-form-error key="leaves.{{ $i }}.start_date" />
             </div>             
-            
-           
+                     
 
-            
-
-            <div>
-                <label for="number_of_leaves{{ $i }}">Jumlah Cuti {{ $i + 1 }}</label>
-                <input type="number" wire:model.defer="leaves.{{ $i }}.number_of_leaves" class="form-control" placeholder="Jumlah Cuti">
-                @error('leaves.' . $i . '.number_of_leaves') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-
-           
+              
 
             <div>
                 <label for="remaining_days_off{{ $i }}">Sisa Cuti {{ $i + 1 }}</label>

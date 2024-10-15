@@ -11,6 +11,7 @@ use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class LeaveCreateForm extends Component
 {
