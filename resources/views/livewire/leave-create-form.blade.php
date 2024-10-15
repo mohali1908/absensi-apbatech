@@ -39,7 +39,7 @@
             </div>
 
             <!-- Kondisi Half Cuti -->
-            @if ($leave['leave_type'] == 'half') <!-- assuming 'half' is the ID for half cuti -->
+            @if ($leave['leave_type'] == '2') <!-- assuming 'half' is the ID for half cuti -->
             <div class="mt-3">
                 <label>Half Cuti - Pilih Waktu</label>
                 <div>
@@ -55,7 +55,7 @@
             @endif
 
             <!-- Kondisi Full Cuti -->
-            @if ($leave['leave_type'] == 'full') <!-- assuming 'full' is the ID for full cuti -->
+            @if ($leave['leave_type'] == '1') <!-- assuming 'full' is the ID for full cuti -->
             <div>
                 <label for="number_of_leaves{{ $i }}">Jumlah Cuti {{ $i + 1 }}</label>
                 <input type="number" wire:model.defer="leaves.{{ $i }}.number_of_leaves" class="form-control" placeholder="Jumlah Cuti">
