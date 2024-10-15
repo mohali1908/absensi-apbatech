@@ -41,8 +41,8 @@ class LeaveCreateForm extends Component
             'start_date' => '', 
             'end_date' => '', 
             'leave_type' => '', 
-            'number_of_leaves' => '', 
-            'remaining_days_off' => '', 
+            'number_of_leaves' => 1,  
+            'remaining_days_off' => Carbon::today()->toDateString(), 
             'reason' => '', 
             'is_accepted' => '',
             'attendance_id' => ''
