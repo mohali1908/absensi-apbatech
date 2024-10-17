@@ -33,16 +33,15 @@ class monthlyAbsenUserChart
             ->whereBetween('presence_date', [$startDate, $endDate])
             ->whereNotIn(DB::raw('DAYOFWEEK(presence_date)'), [1, 7]) // 1 = Sunday, 7 = Saturday
             ->where('is_leave', 0) // Exclude records where is_leave is true
-            ->where('is_permission', 0) // Exclude records where is_permission is true
             ->get();
 
         // Pisahkan data antara tepat waktu dan terlambat
         $tepatWaktuCount = $absensi->filter(function ($item) {
-            return $item->presence_enter_time <= '09:15:00';
+            return $item->presence_enter_time <= '09:15:59';
         })->count();
 
         $terlambatCount = $absensi->filter(function ($item) {
-            return $item->presence_enter_time > '09:15:00';
+            return $item->presence_enter_time >= '09:16:00';
         })->count();
 
         // Data untuk chart

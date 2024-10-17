@@ -138,7 +138,7 @@
                                           
                                                 @endif
                                             </td>  
-                                            @if($histo->is_leave  == 1  ) 
+                                            @if($histo->is_leave  == 2  ) 
                                             <td colspan="5">               
                                                 @php
                                                 $leave = $leaves->where('user_id', $histo->user_id)
@@ -154,7 +154,7 @@
                                             @else
                                             <td> @php
                                                 $enterTime = \Carbon\Carbon::parse($histo->presence_enter_time);
-                                                $lateTime = \Carbon\Carbon::createFromTime(9, 15, 0);
+                                                $lateTime = \Carbon\Carbon::createFromTime(9, 16, 0);
                                                 @endphp
                                 
                                                 @if($enterTime->gt($lateTime))

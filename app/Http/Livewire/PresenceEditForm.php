@@ -30,6 +30,7 @@ class PresenceEditForm extends Component
                 'presence_out_time' => $presence->presence_out_time,
                 'presence_enter_from' => $presence->presence_enter_from,
                 'presence_out_from' => $presence->presence_out_from,
+                'notes' => $presence->notes,
             ];
         }
     }
@@ -57,6 +58,7 @@ class PresenceEditForm extends Component
             'presences.*.presence_out_time' => 'nullable|date_format:H:i:s|after:presences.*.presence_enter_time', // Waktu keluar opsional, harus dalam format waktu, dan harus setelah waktu masuk
             'presences.*.presence_enter_from' => 'nullable|string|max:100', // Lokasi masuk opsional, maksimal 100 karakter
             'presences.*.presence_out_from' => 'nullable|string|max:100', // Lokasi keluar opsional, maksimal 100 karakter
+            'presences.*.notes' => 'nullable|string|max:255',
         ]);
 
         
@@ -81,6 +83,7 @@ class PresenceEditForm extends Component
         'presence_out_time' => $presence['presence_out_time'] ?? null, // Waktu keluar kehadiran, atau null jika tidak ada
         'presence_enter_from' => $presence['presence_enter_from'] ?? null, // Lokasi masuk kehadiran, atau null
         'presence_out_from' => $presence['presence_out_from'] ?? null, // Lokasi keluar kehadiran, atau null
+        'notes' => $presence['notes'] ?? null,
         ]);
     }
 

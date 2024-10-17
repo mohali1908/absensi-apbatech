@@ -143,7 +143,10 @@ class LeaveCreateForm extends Component
                 ->first();
 
             $lastRemainingDaysOff = $lastLeave ? $lastLeave->remaining_days_off : 0;
+
+            // Sesuaikan pengurangan sisa cuti berdasarkan leave_type
             $leaveDaysToDeduct = $leaveType == 2 ? $numberOfLeaves * 0.5 : $numberOfLeaves;
+
             $calculatedRemainingDaysOff = $lastRemainingDaysOff - $leaveDaysToDeduct;
 
             if ($calculatedRemainingDaysOff < 0) {
@@ -172,14 +175,29 @@ class LeaveCreateForm extends Component
             }
 
             foreach ($leaveDates as $date) {
-                Presence::create([
-                    'user_id' => $leave['user_id'],
-                    'attendance_id' => $leave['attendance_id'] ?? 1,
-                    'presence_date' => $date,
-                    'is_leave' => 1,
-                    'presence_from' => 0,
-                    'presence_enter_time' => $leave['leave_type'] == 2 ? now()->toTimeString() : null,
-                ]);
+                $presence = Presence::where('user_id', $leave['user_id'])
+                    ->where('presence_date', $date)
+                    ->first();
+
+                if ($leaveType == 2) {
+                    // Update presence untuk cuti setengah hari
+                    if ($presence) {
+                        $presence->update([
+                            'is_leave' => 2,
+                            'presence_enter_time' => now()->toTimeString(),
+                        ]);
+                    }
+                } else {
+                    // Simpan data presences untuk cuti penuh
+                    Presence::create([
+                        'user_id' => $leave['user_id'],
+                        'attendance_id' => $leave['attendance_id'] ?? 1,
+                        'presence_date' => $date,
+                        'is_leave' => 1,
+                        'presence_from' => 0,
+                        'presence_enter_time' => null,
+                    ]);
+                }
             }
 
             $affected++;
@@ -193,4 +211,3 @@ class LeaveCreateForm extends Component
         return view('livewire.leave-create-form');
     }
 }
-

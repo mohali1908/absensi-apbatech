@@ -23,11 +23,11 @@ class MultiValueLineChart
         $endDate = Carbon::now()->endOfDay();
 
         $absenpies = Presence::select(DB::raw('DATE(presence_date) as date'),
-            DB::raw('(count(presence_date)-sum(is_permission)-sum(is_leave)- SUM(CASE WHEN TIME(presence_enter_time) > "09:15:00" THEN 1 ELSE 0 END)) AS hadir'),
+            DB::raw('(count(presence_date)-sum(is_permission)-sum(CASE WHEN is_leave = 2 THEN 1 ELSE is_leave END)- SUM(CASE WHEN TIME(presence_enter_time) >= "09:16:00" AND is_permission = 0 THEN 1 ELSE 0 END)) AS hadir'),
             DB::raw('('.DB::raw('(select count(distinct user_id) from presences where presence_date BETWEEN "'.$startDate.'" AND "'.$endDate.'")').' - count(presence_date)) AS belumhadir'),
             DB::raw('sum(is_permission) as izin'),
-            DB::raw('sum(is_leave) as cuti'),
-            DB::raw('SUM(CASE WHEN TIME(presence_enter_time) > "09:15:00" THEN 1 ELSE 0 END) AS terlambat')
+            DB::raw('sum(CASE WHEN is_leave = 2 THEN 1 ELSE is_leave END) as cuti'),
+            DB::raw('SUM(CASE WHEN TIME(presence_enter_time) >= "09:16:00" AND is_permission = 0 THEN 1 ELSE 0 END) AS terlambat')
         )
         ->whereBetween('presence_date', [$startDate, $endDate])
         ->whereNotIn(DB::raw('DAYOFWEEK(presence_date)'), [1, 7])

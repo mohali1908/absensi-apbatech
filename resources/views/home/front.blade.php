@@ -138,7 +138,7 @@
                                     <td>{{ $absen->presence_enter_from}}</td>
                                     <td>{{ $absen->presence_out_time}}</td>
                                     <td>{{ $absen->presence_out_from}}</td>
-                                    @if($absen->is_leave  == 1) 
+                                    @if($absen->is_leave  == 2) 
                                     
 
                                     <td colspan="5">               
@@ -154,16 +154,20 @@
                                             data-bs-target="#leave-detail-modal">Cuti 1/2 hari</button>    
                                     </td>
                                     @else
-                                    <td> @php
-                                        $enterTime = \Carbon\Carbon::parse($absen->presence_enter_time);
-                                        $lateTime = \Carbon\Carbon::createFromTime(9, 15, 0);
+                                    <td>
+                                        @php
+                                            $enterTime = \Carbon\Carbon::parse($absen->presence_enter_time);
+                                            $lateTime = \Carbon\Carbon::createFromTime(9, 16, 0);
+                                            $isLate = $enterTime->gt($lateTime); // True if enterTime is later than lateTime
                                         @endphp
-                        
-                                        @if($enterTime->gt($lateTime))
-                                            <div class="badge text-bg-warning">Hadir</div>
-                                        @else
-                                            <div class="badge text-bg-success">Hadir</div>
-                                        @endif
+                                    
+                                        <button class="badge border-0 absen-detail-modal-triggers 
+                                                       {{ $isLate ? 'text-bg-warning' : 'text-bg-success' }}" 
+                                                data-absen-id="{{ $absen->presence_id }}"  
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#absen-detail-modal">
+                                            Hadir
+                                        </button>
                                     </td>
                                     @endif 
 
@@ -247,6 +251,21 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="absen-detail-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Presence</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Keterangan: <p id="absen-notes"></p></li> <!-- This will be updated dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
         
 
     @include('partials.scripts')
@@ -256,9 +275,15 @@
     <script>
     const permissionUrl = "{{ route('api.permissions.show') }}";
     const leaveUrl = "{{ route('api.leaves.show') }}";
+    const absenUrl = "{{ route('api.absen.show') }}";
     </script>
+
+
     <script src="{{ asset('js/presences/permissions.js') }}"></script>
     <script src="{{ asset('js/presences/leaves.js') }}"></script>
+    <script src="{{ asset('js/presences/absen.js') }}"></script>
+
+
     <script src="{{ $dailyAbsenChart->cdn() }}">
     
         // lgtm [js/unused-local-variable]
@@ -279,7 +304,7 @@
        
    
 
-</body>
+</body> 
 
 </html>
 

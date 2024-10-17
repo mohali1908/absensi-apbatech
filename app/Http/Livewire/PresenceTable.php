@@ -187,6 +187,7 @@ final class PresenceTable extends PowerGridComponent
                     '<span class="badge text-bg-danger">Izin</span>' : 
                     '<span class="badge text-bg-success">Hadir</span>')
             )
+            ->addColumn("notes")
             ->addColumn('created_at')
             ->addColumn('created_at_formatted', fn (Presence $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
@@ -247,6 +248,9 @@ final class PresenceTable extends PowerGridComponent
                 ->sortable(),
 
             Column::make('Status', 'is_permission')
+                ->sortable(),
+            
+            Column::make('Notes', 'notes')
                 ->sortable(),
 
             Column::make('Created at', 'created_at')

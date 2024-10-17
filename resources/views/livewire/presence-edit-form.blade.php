@@ -12,12 +12,7 @@
                     <x-form-error key="presences.{{ $i }}.user_id" />
                 </div>
 
-                <!-- Attendance ID -->
-                <div class="mb-3">
-                    <x-form-label id="attendance_id{{ $i }}" label='Attendance ID ({{ $i + 1 }})' />
-                    <x-form-input id="attendance_id{{ $i }}" name="attendance_id{{ $i }}" wire:model.defer="presences.{{ $i }}.attendance_id" />
-                    <x-form-error key="presences.{{ $i }}.attendance_id" />
-                </div>
+              
 
                 <!-- Presence Date -->
                 <div class="mb-3">
@@ -42,17 +37,41 @@
 
                 <!-- Enter From -->
                 <div class="mb-3">
-                    <x-form-label id="presence_enter_from{{ $i }}" label='Masuk Dari ({{ $i + 1 }})' />
-                    <x-form-input id="presence_enter_from{{ $i }}" name="presence_enter_from{{ $i }}" wire:model.defer="presences.{{ $i }}.presence_enter_from" />
-                    <x-form-error key="presences.{{ $i }}.presence_enter_from" />
+                    <label for="presence_enter_from{{ $i }}" class="form-label">Masuk Dari ({{ $i + 1 }})</label>
+                    <select id="presence_enter_from{{ $i }}" name="presence_enter_from{{ $i }}" 
+                            class="form-control" wire:model.defer="presences.{{ $i }}.presence_enter_from">
+                        <option value="">-- Pilih Masuk Dari --</option>
+                        <option value="1" {{ $presences[$i]['presence_enter_from'] == 1 ? 'selected' : '' }}>Mesin</option>
+                        <option value="0" {{ $presences[$i]['presence_enter_from'] == 0 ? 'selected' : '' }}>Web</option>
+                    </select>
+                    @error('presences.' . $i . '.presence_enter_from') 
+                        <span class="text-danger">{{ $message }}</span> 
+                    @enderror
                 </div>
+                
+                
 
                 <!-- Out From -->
                 <div class="mb-3">
-                    <x-form-label id="presence_out_from{{ $i }}" label='Keluar Dari ({{ $i + 1 }})' />
-                    <x-form-input id="presence_out_from{{ $i }}" name="presence_out_from{{ $i }}" wire:model.defer="presences.{{ $i }}.presence_out_from" />
-                    <x-form-error key="presences.{{ $i }}.presence_out_from" />
+                    <label for="presence_out_from{{ $i }}" class="form-label">Masuk Dari ({{ $i + 1 }})</label>
+                    <select id="presence_out_from{{ $i }}" name="presence_out_from{{ $i }}" 
+                            class="form-control" wire:model.defer="presences.{{ $i }}.presence_out_from">
+                        <option value="">-- Pilih Masuk Dari --</option>
+                        <option value="1" {{ $presences[$i]['presence_out_from'] == 1 ? 'selected' : '' }}>Mesin</option>
+                        <option value="0" {{ $presences[$i]['presence_out_from'] == 0 ? 'selected' : '' }}>Web</option>
+                    </select>
+                    @error('presences.' . $i . '.presence_out_from') 
+                        <span class="text-danger">{{ $message }}</span> 
+                    @enderror
                 </div>
+
+                 <!-- Notes -->
+                 <div class="mb-3">
+                    <x-form-label id="notes{{ $i }}" label='Keterangan ({{ $i + 1 }})' />
+                    <x-form-input id="notes{{ $i }}" name="notes{{ $i }}" wire:model.defer="presences.{{ $i }}.notes" />
+                    <x-form-error key="presences.{{ $i }}.notes" />
+                </div>
+
             </div>
         </div>
         <hr>

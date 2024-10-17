@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function index(DailyAbsenChart $dailyAbsenChart, DailyPieChart $dailyPieChart,MultiValueLineChart $multiValueLineChart )
     {
         $absenall = $absenall = DB::table('users')
-        ->select('users.id','user_id','users.name' ,'attendance_id', 'presence_date','presence_enter_time','presence_out_time','presence_from','presence_enter_from','presence_out_from','is_permission','is_leave')
+        ->select('users.id','user_id','users.name' ,'attendance_id', 'b.id as presence_id','presence_date','presence_enter_time','presence_out_time','presence_from','presence_enter_from','presence_out_from','is_permission','is_leave')
         ->leftjoin(DB::raw('(SELECT * from presences WHERE presence_date = CURDATE()) b'),function($join){ 
             $join->on ('b.user_id','=', 'users.id');
         })

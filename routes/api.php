@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\LeaveController;
+use App\Http\Controllers\Api\AbsenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('permissions/detail', [PermissionController::class, 'show'])->name('api.permissions.show');
 Route::get('leaves/detail', [LeaveController::class, 'show'])->name('api.leaves.show');
+Route::get('absen/detail', [AbsenController::class, 'show'])->name('api.absen.show');

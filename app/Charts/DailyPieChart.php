@@ -29,11 +29,11 @@ class dailyPieChart
 
         $users = $users[0]['jml'];
 
-        $absenpies = Presence::select(DB::raw('(count(presence_date)-sum(is_permission)-sum(is_leave)- SUM(CASE WHEN TIME(presence_enter_time) > "09:15:00" THEN 1 ELSE 0 END))  AS hadir'),
+        $absenpies = Presence::select(DB::raw('(count(presence_date)-sum(is_permission)-sum(CASE WHEN is_leave = 2 THEN 1 ELSE is_leave END)-SUM(CASE WHEN TIME(presence_enter_time) >= "09:16:00"  AND is_permission = 0 THEN 1 ELSE 0 END))  AS hadir'),
                      DB::raw('('.$users.'-count(presence_date)) AS belumhadir'),
                      DB::raw('sum(is_permission) as izin'),
                      DB::raw('sum(is_leave) as cuti'),
-                     DB::raw('SUM(CASE WHEN TIME(presence_enter_time) > "09:15:00" THEN 1 ELSE 0 END) AS terlambat') // Hitung yang terlambat
+                     DB::raw('SUM(CASE WHEN TIME(presence_enter_time) >= "09:16:00" AND is_permission = 0 THEN 1 ELSE 0 END) AS terlambat') // Hitung yang terlambat
                     )
                     ->where(DB::raw('DATE_FORMAT(presence_date, "%Y-%m-%d")'), $tglskr)
                     ->get();
