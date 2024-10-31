@@ -33,6 +33,7 @@ class monthlyAbsenUserChart
             ->whereBetween('presence_date', [$startDate, $endDate])
             ->whereNotIn(DB::raw('DAYOFWEEK(presence_date)'), [1, 7]) // 1 = Sunday, 7 = Saturday
             ->where('is_leave', 0) // Exclude records where is_leave is true
+            ->where('is_permission', 0) // Exclude records where is_leave is true
             ->get();
 
         // Pisahkan data antara tepat waktu dan terlambat
