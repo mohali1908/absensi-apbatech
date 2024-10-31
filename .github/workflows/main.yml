@@ -17,4 +17,4 @@ jobs:
         server: ftp.apbatech.com
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
-        server-dir: /
+        server-dir: /home/u1795453/public_html/cobaabsen.apbatech.com
