@@ -165,8 +165,7 @@
                                                        {{ $isLate ? 'text-bg-warning' : 'text-bg-success' }}" 
                                                 data-absen-id="{{ $absen->presence_id }}"  
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#absen-detail-modal">
-                                            Hadir
+                                                data-bs-target="#absen-detail-modal">Hadir
                                         </button>
                                     </td>
                                     @endif 
@@ -181,17 +180,16 @@
             <div class="col-md-6">
 
                 <div class="container px-4 mx-auto">
-
-                    <div class="p-6 m-20 bg-white rounded shadow">
-                        {!! $dailyPieChart->container() !!}
+                    <div class="chart-container p-6 m-20 bg-white rounded shadow">
+                        {!! $dailyPieChart->container(['id' => 'dailyPieChart']) !!}
                     </div>
                 </div>
-
-                <div class="container px-4 mx-auto">
-                    <div style="width: 100%; height: 500px;">
-                        {!! $multiValueLineChart->container() !!}
-                    </div>   
-                </div>
+                
+                {{-- <div class="container px-4 mx-auto">
+                    <div class="chart-container p-6 m-20 bg-white rounded shadow" style="width: 100%; height: 500px;">
+                        {!! $multiValueLineChart ->container(['id' => 'multiValueLineChart']) !!}
+                    </div>
+                </div> --}}
                 
                 {{-- <div class="align-self-center wow bounceInUp" data-aos="zoom-in" data-aos-delay="100">
                     <div class="box">
@@ -279,28 +277,24 @@
     </script>
 
 
+
+
     <script src="{{ asset('js/presences/permissions.js') }}"></script>
     <script src="{{ asset('js/presences/leaves.js') }}"></script>
     <script src="{{ asset('js/presences/absen.js') }}"></script>
 
 
-    <script src="{{ $dailyAbsenChart->cdn() }}">
     
-        // lgtm [js/unused-local-variable]
-        </script>
-    
-        {{ $dailyAbsenChart->script() }}  
+<!-- Di bawah sini. pastikan script dimasukkan -->
+<script src="{{ $dailyPieChart->cdn() }}"></script>
+{{ $dailyPieChart->script() }}
 
-        <script src="{{ $dailyPieChart->cdn() }}"></script>
+<script src="{{ $multiValueLineChart->cdn() }}"></script>
+{{ $multiValueLineChart->script() }}
 
-        {{ $dailyPieChart->script() }}
 
-        <script src="{{ $multiValueLineChart->cdn() }}">
-    
-            // lgtm [js/unused-local-variable]
-            </script>
 
-        {{ $multiValueLineChart->script() }}
+   
        
    
 
