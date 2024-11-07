@@ -165,7 +165,7 @@
                                                        {{ $isLate ? 'text-bg-warning' : 'text-bg-success' }}" 
                                                 data-absen-id="{{ $absen->presence_id }}"  
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#absen-detail-modal">Hadir
+                                                data-bs-target="#absen-detail-modal">Hadir8
                                         </button>
                                     </td>
                                     @endif 
