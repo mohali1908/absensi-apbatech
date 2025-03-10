@@ -31,6 +31,7 @@ class AuthController extends Controller
             $join->on ('b.user_id','=', 'users.id');
         })
         ->whereNotIn('users.id', [1])
+        ->where('users.status', 1)
         ->groupBy('users.id')
         ->orderBy('presence_enter_time', 'desc')
         ->get();
