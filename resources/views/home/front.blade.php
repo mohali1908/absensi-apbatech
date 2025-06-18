@@ -170,7 +170,7 @@
                                             <button class="badge text-bg-info border-0 absen-detail-modal-triggers"
                                                 data-absen-id="{{ $absen->presence_id }}"  
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#absen-detail-modal">Cuti 1/2 Hari / Shift 2
+                                                data-bs-target="#absen-detail-modal">Cuti / Shift
                                             </button>
                                         @else
                                             <button class="badge border-0 absen-detail-modal-triggers 
