@@ -158,19 +158,31 @@
                                         @php
                                             $enterTime = \Carbon\Carbon::parse($absen->presence_enter_time);
                                             $lateTime = \Carbon\Carbon::createFromTime(9, 16, 0);
-                                            $isLate = $enterTime->gt($lateTime); // True if enterTime is later than lateTime
+                                            $shift2Start = \Carbon\Carbon::createFromTime(13, 0, 0);
+
+
+                                            $isLate = $enterTime->gt($lateTime); // lebih dari 09:16 
+                                            $isShift2 = $enterTime->gte($shift2Start); // masuk >= 13:00
+                                            
                                         @endphp
                                     
-                                        <button class="badge border-0 absen-detail-modal-triggers 
-                                                       {{ $isLate ? 'text-bg-warning' : 'text-bg-success' }}" 
+                                        @if($isShift2)
+                                            <button class="badge text-bg-info border-0 absen-detail-modal-triggers"
                                                 data-absen-id="{{ $absen->presence_id }}"  
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#absen-detail-modal">Hadir
-                                        </button>
+                                                data-bs-target="#absen-detail-modal">Cuti 1/2 Hari / Shift 2
+                                            </button>
+                                        @else
+                                            <button class="badge border-0 absen-detail-modal-triggers 
+                                                        {{ $isLate ? 'text-bg-warning' : 'text-bg-success' }}" 
+                                                    data-absen-id="{{ $absen->presence_id }}"  
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#absen-detail-modal">Hadir
+                                            </button>
+                                        @endif
                                     </td>
                                     @endif 
-
-                                @endif                        
+                                @endif                       
                             @endif                     
                         </tr>
                         @endforeach   
