@@ -52,7 +52,7 @@ class dailyPieChart
             'Hadir' => $hadir,
             'Cuti' => $cuti,
             'Izin' => $izin,
-            '(Hadir) terlambat' => $terlambat,
+            '(Hadir) keterangan' => $terlambat,
         ];
         
         return $this->chart->pieChart()
