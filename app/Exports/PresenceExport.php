@@ -21,11 +21,11 @@ class PresenceExport implements FromCollection, WithHeadings, WithMapping
             strip_tags($presence->user_name),
             strip_tags($presence->presence_date),
             strip_tags($presence->presence_enter_time),
-            strip_tags($presence->Ket),
-            strip_tags($presence->presence_enter_from),
-            strip_tags($presence->presence_out_time),
-            strip_tags($presence->presence_out_from),
-            strip_tags($presence->is_permission),
+            strip_tags(html_entity_decode($presence->Ket)),
+            strip_tags(html_entity_decode($presence->presence_enter_from)),
+            strip_tags(html_entity_decode($presence->presence_out_time)),
+            strip_tags(html_entity_decode($presence->presence_out_from)),
+            strip_tags(html_entity_decode($presence->is_permission)),
             strip_tags($presence->created_at->format('d/m/Y H:i:s')),
         ];
     }
