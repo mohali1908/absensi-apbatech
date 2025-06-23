@@ -30,7 +30,7 @@ class AuthController extends Controller
         ->leftjoin(DB::raw('(SELECT * from presences WHERE presence_date = CURDATE()) b'),function($join){ 
             $join->on ('b.user_id','=', 'users.id');
         })
-        ->whereNotIn('users.id', [1])
+        ->whereNotIn('users.id', [1,2]) // Mengabaikan user dengan id 1 dan 2
         ->where('users.status', 1)
         ->groupBy('users.id')
         ->orderBy('presence_enter_time', 'desc')
