@@ -177,7 +177,7 @@ class AuthController extends Controller
         $priodDate = CarbonPeriod::create('2024-01-01', now()->toDateString());
 
         $priodDate = $priodDate->filter(function (Carbon $date) {
-                return $date->isWeekday();
+                return $date;
             })->toArray();
 
         foreach ($priodDate as $i => $date) { // get only stringdate

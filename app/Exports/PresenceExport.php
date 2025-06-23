@@ -21,7 +21,7 @@ class PresenceExport implements FromCollection, WithHeadings, WithMapping
             strip_tags($presence->user_name),
             strip_tags($presence->presence_date),
             strip_tags($presence->presence_enter_time),
-            preg_replace('/<[^>]+>/', '', html_entity_decode($presence->Ket)),
+            strip_tags(html_entity_decode($presence->Ket)),
             strip_tags($presence->presence_enter_from),
             strip_tags($presence->presence_out_time),
             strip_tags($presence->presence_out_from),
