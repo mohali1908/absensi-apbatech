@@ -107,7 +107,7 @@ final class PresenceTable extends PowerGridComponent
         $this->showCheckBox();
 
         return [
-            Exportable::make('export')->stripTags()
+            Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput()->showToggleColumns(),
