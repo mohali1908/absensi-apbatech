@@ -71,15 +71,24 @@
                                     <td>{{ \Carbon\Carbon::parse($date)->dayName }}</td>
                                     <td colspan="5">
                                         @php
-                                            $isHoliday = in_array($date, $holidays);
-                                            $today = now()->toDateString();
+                                            #$isHoliday = in_array($date, $holidays);
+                                            #$today = now()->toDateString();
+                                            $currentDateInLoop = \Carbon\Carbon::parse($date);
+                                            $isWeekendInLoop = $currentDateInLoop->isWeekend();
+                                            $isHolidayInLoop = in_array($date, $holidays);
                                         @endphp
-                                        @if($date == now()->toDateString())
-                                        <div class="badge text-bg-info">Belum Hadir</div>
+                                       {{--  @if($date == now()->toDateString())
+                                            <div class="badge text-bg-info">Belum Hadir</div>
                                         @elseif($isHoliday)
-                                        <div class="badge text-bg-primary">Hari Libur</div> <!-- Blue for holidays -->
+                                            <div class="badge text-bg-primary">Hari Libur</div> <!-- Blue for holidays --> --}}
+                                        @if($isWeekendInLoop)
+                                            <div class="badge text-bg-secondary">Akhir Pekan</div>
+                                        @elseif($isHolidayInLoop)
+                                            <div class="badge text-bg-primary">Hari Libur</div>
+                                        @elseif($date == now()->toDateString())
+                                            <div class="badge text-bg-info">Belum Hadir</div>
                                         @else
-                                        <div class="badge text-bg-danger">Tidak Hadir</div>
+                                            <div class="badge text-bg-danger">Tidak Hadir</div>
                                         @endif
                                     </td>
                                     @else

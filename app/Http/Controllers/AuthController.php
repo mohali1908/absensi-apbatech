@@ -186,6 +186,12 @@ class AuthController extends Controller
         
         $priodDate = array_slice(array_reverse($priodDate), 0, 30);
 
+         // Tambahkan logika untuk menentukan apakah hari ini adalah hari libur
+        $isWeekend = Carbon::now()->isWeekend();
+        $isHoliday = in_array(Carbon::now()->toDateString(), $holidays);
+        $holidayDescription = '';
+        if ($isHoliday) $holidayDescription = Holiday::where('holiday_date', Carbon::now()->toDateString())->first()->description;
+
         // Generate the chart data for the specific user
         $monthlyAbsenUserChart = $monthlyAbsenUserChart->build($id); // Pass the user ID
 
@@ -199,6 +205,10 @@ class AuthController extends Controller
             'holidays' => $holidays,
             'user_name' => $user_name,
             'monthlyAbsenUserChart' => $monthlyAbsenUserChart, // Pass the chart instance,
+            'isWeekend' => $isWeekend,
+            'isHoliday' => $isHoliday,
+            'holidayDescription' => $holidayDescription,
+            'date' => $byDate,
         ]);
     }
 
